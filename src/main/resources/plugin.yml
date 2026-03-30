@@ -1,0 +1,7 @@
+name: Zeny-Tickets
+version: '1.0-SNAPSHOT'
+main: dev.slay.Main
+api-version: '1.21'
+prefix: Zeny
+load: STARTUP
+authors: [ ySlaysherz_ ]
