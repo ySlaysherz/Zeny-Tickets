@@ -7,6 +7,5 @@ Vips:
 # Lista de tickets ja criados com suas respectivas propriedades.
 Tickets:
   0:
-    Nome: "&6Ticket Vip &fFerro"
     Duracao: 30
     Vip: Ferro

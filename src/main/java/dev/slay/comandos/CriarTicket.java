@@ -11,9 +11,6 @@ import org.jspecify.annotations.NonNull;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CriarTicket implements CommandExecutor {
 
     @Override
@@ -23,6 +20,9 @@ public class CriarTicket implements CommandExecutor {
             return false;
         }
         Player jogador = (Player) sender;
+        if (!jogador.isOp()) {
+            return true;
+        }
         if (cmd.getName().equalsIgnoreCase("tickets")) {
             for (Ticket ticket : Manager.getTickets()) {
                 jogador.sendMessage("");
@@ -47,7 +47,10 @@ public class CriarTicket implements CommandExecutor {
             if (args.length == 2) {
                 String vip = args[0];
                 int duracao = Integer.parseInt(args[1]);
-                int id = Manager.getTickets().size() + 1;
+                int id = Manager.getTickets().size();
+                if (Manager.getTickets().size() > 0) {
+                    id += 1;
+                }
                 ItemStack item = Main.instance.getTicketItemStack(vip, duracao, id);
                 Ticket ticket = new Ticket(id, item, vip, duracao);
                 Manager.addTicket(ticket);

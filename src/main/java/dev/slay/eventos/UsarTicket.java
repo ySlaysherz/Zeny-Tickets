@@ -20,8 +20,8 @@ public class UsarTicket implements Listener {
     @EventHandler
     public void aoUsarTicket(PlayerInteractEvent evento) {
         Player jogador = (Player) evento.getPlayer();
-
         if (jogador.getInventory().getItemInMainHand() == null) return;
+        if (jogador.getInventory().getItemInMainHand().getType() != Material.TRIAL_KEY) return;
         ItemStack item = jogador.getInventory().getItemInMainHand();
         if (!item.hasItemMeta()) return;
         ItemMeta meta = item.getItemMeta();
@@ -32,7 +32,7 @@ public class UsarTicket implements Listener {
         if (item.getType() != Manager.getTicket(id).getItem().getType()) return;
         evento.setCancelled(true);
         jogador.getInventory().removeItem(jogador.getInventory().getItemInMainHand());
-        String comando = "/darvip " + " " + Manager.getTicket(id).getVip() + " " + Manager.getTicket(id).getVipDuracao();
+        String comando = "darvip " + jogador.getDisplayName() +" " + Manager.getTicket(id).getVip() + " " + Manager.getTicket(id).getVipDuracao();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), comando);
         jogador.sendMessage(ChatColor.GREEN + "Ticket usado e vip adicionado com sucesso!");
     }

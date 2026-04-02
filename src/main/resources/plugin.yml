@@ -1,5 +1,5 @@
 name: Zeny-Tickets
-version: '1.0-SNAPSHOT'
+version: '1.0'
 main: dev.slay.Main
 api-version: '1.21'
 prefix: Zeny

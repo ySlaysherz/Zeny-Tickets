@@ -34,10 +34,13 @@ public final class Main extends JavaPlugin implements CommandExecutor, Listener 
         getCommand("ticket").setExecutor(new CriarTicket());
         getCommand("tickets").setExecutor(new CriarTicket());
         getCommand("criarticket").setExecutor(new CriarTicket());
+
+        Manager.CarregarTickets();
     }
 
     @Override
     public void onDisable() {
+        Manager.SalvarTickest();
     }
 
     public ItemStack getTicketItemStack(String vip, int duracao, int id) {
