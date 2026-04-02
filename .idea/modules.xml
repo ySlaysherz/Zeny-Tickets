@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Zeny-Tickets.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Zeny-Tickets.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.Zeny-Tickets.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.Zeny-Tickets.main.iml" />
     </modules>
   </component>
 </project>

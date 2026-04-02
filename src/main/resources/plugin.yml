@@ -5,3 +5,7 @@ api-version: '1.21'
 prefix: Zeny
 load: STARTUP
 authors: [ ySlaysherz_ ]
+commands:
+  ticket:
+  tickets:
+  criarticket:
