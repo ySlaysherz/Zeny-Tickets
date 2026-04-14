@@ -1,0 +1,11 @@
+# Adicione uma lista dos vips que vao ser dados aos consumir um ticket
+Vips:
+  - Ferro
+  - Ouro
+  - Diamante
+
+# Lista de tickets ja criados com suas respectivas propriedades.
+Tickets:
+  0:
+    Duracao: 30
+    Vip: Ferro
