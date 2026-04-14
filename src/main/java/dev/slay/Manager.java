@@ -10,6 +10,8 @@ public class Manager {
 
     public static Set<Ticket> TicketsCriados = new HashSet<>();
 
+    public static Boolean isConfiguracaoCarregada = false;
+
     public static void addTicket(Ticket ticket) {
         TicketsCriados.add(ticket);
     }
@@ -22,6 +24,8 @@ public class Manager {
         return TicketsCriados;
     }
 
+
+
     public static Ticket getTicket(int id) {
         for (Ticket ticket : TicketsCriados) {
             if (ticket.getId() == id) {
@@ -32,23 +36,33 @@ public class Manager {
     }
 
     public static void CarregarTickets() {
-        for (String ids : Main.instance.getConfig().getConfigurationSection("Tickets").getKeys(false)) {
-            int id = Integer.parseInt(ids);
-            String vip = Main.instance.getConfig().getConfigurationSection("Tickets").getConfigurationSection(ids).getString("Vip");
-            int duracao = Main.instance.getConfig().getConfigurationSection("Tickets").getConfigurationSection(ids).getInt("Duracao");
-            ItemStack item = Main.instance.getTicketItemStack(vip, duracao,id);
-            Ticket ticket = new Ticket(id, item, vip, duracao);
-            TicketsCriados.add(ticket);
+        if (Main.instance.getConfig().getConfigurationSection("Tickets") == null) Main.instance.getConfig().createSection("Tickets");
+        if (!isConfiguracaoCarregada) {
+            for (String ids : Main.instance.getConfig().getConfigurationSection("Tickets").getKeys(false)) {
+                if (ids == null) {
+                    continue;
+                }
+                String vip = Main.instance.getConfig().getConfigurationSection("Tickets").getConfigurationSection(ids).getString("Vip");
+                int duracao = Integer.parseInt(Main.instance.getConfig().getConfigurationSection("Tickets").getConfigurationSection(ids).getString("Duracao"));
+                int id = Integer.parseInt(ids);
+
+                Ticket ticket = new Ticket(id, Main.instance.getTicketItemStack(vip, duracao, id), vip, duracao);
+                Manager.addTicket(ticket);
+
+            }
+        }
+        if (TicketsCriados.isEmpty()) {
+            isConfiguracaoCarregada = false;
+        } else {
+            isConfiguracaoCarregada = true;
         }
     }
     public static void SalvarTickest() {
         for (Ticket ticket : TicketsCriados) {
+            Main.instance.getConfig().getConfigurationSection("Tickets").createSection("" + ticket.getId());
             ConfigurationSection secao = Main.instance.getConfig().getConfigurationSection("Tickets").getConfigurationSection("" + ticket.getId());
-            if (secao == null) {
-                secao = Main.instance.getConfig().getConfigurationSection("Tickets").createSection("" + ticket.getId());
-                secao.set("Vip", ticket.getVip());
-                secao.set("Duracao", ticket.getVipDuracao());
-            }
+            secao.set("Vip", ticket.getVip());
+            secao.set("Duracao", ticket.getVipDuracao());
         }
         Main.instance.saveConfig();
         Main.instance.reloadConfig();
